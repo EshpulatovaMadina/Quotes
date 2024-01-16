@@ -1,8 +1,11 @@
 package com.example.quotes.controller;
 
+import com.example.quotes.DTO.respone.QuotesResponseDto;
 import com.example.quotes.entity.QuotesEntity;
 import com.example.quotes.service.QuotesService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +19,32 @@ import java.util.List;
 @RequestMapping("/quotes")
 public class QuotesController {
     private final QuotesService quotesService;
-    @GetMapping("/get-all")
-    public ResponseEntity<List<QuotesEntity>> getAll(@RequestParam(defaultValue = "1") Integer num){
+    @GetMapping("/random")
+    public ResponseEntity<List<QuotesResponseDto>> random(@RequestParam(defaultValue = "1") Integer num){
         return ResponseEntity.ok(quotesService.getRandom(num));
+    }
+
+    @GetMapping("/author")
+    public ResponseEntity<List<QuotesResponseDto>> getByAuthor(
+            @RequestParam(value = "page", defaultValue = "0")
+            int page,
+            @RequestParam(value = "size", defaultValue = "5")
+            int size,
+            @RequestParam String author
+    ) {
+        Pageable pageable = PageRequest.of(page,size);
+        return ResponseEntity.ok(quotesService.getByAuthor(author,pageable));
+    }
+
+    @GetMapping("/category")
+    public ResponseEntity<List<QuotesResponseDto>> getByCategory(
+            @RequestParam(value = "page", defaultValue = "0")
+            int page,
+            @RequestParam(value = "size", defaultValue = "5")
+            int size,
+            @RequestParam String category
+    ) {
+        Pageable pageable = PageRequest.of(page,size);
+        return ResponseEntity.ok(quotesService.getByCategory(category,pageable));
     }
 }
