@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConditionalOnProperty(value = "springfox.documentation.enabled", havingValue = "true", matchIfMissing = true)
-@OpenAPIDefinition(security = @SecurityRequirement(name = "Bearer Authentication"))
+//@OpenAPIDefinition(security = @SecurityRequirement(name = "Bearer Authentication"))
 public class SwaggerConfig {
 
 }

@@ -8,8 +8,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.lang.reflect.Array;
+import java.util.List;
 
-@Document
+@Document(
+        value = "quotes"
+)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -17,6 +20,6 @@ public class QuotesEntity {
     @Id
     private ObjectId id;
     private String author;
-    private Array category;
+    private List<String> category;
     private String quote;
 }

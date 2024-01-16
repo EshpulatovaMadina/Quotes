@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 public class QuotesController {
     private final QuotesService quotesService;
     @GetMapping("/get-all")
-    public ResponseEntity<List<QuotesEntity>> getAll(){
-        return ResponseEntity.ok(quotesService.getAll());
+    public ResponseEntity<List<QuotesEntity>> getAll(@RequestParam(defaultValue = "1") Integer num){
+        return ResponseEntity.ok(quotesService.getRandom(num));
     }
 }
