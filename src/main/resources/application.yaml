@@ -1,0 +1,27 @@
+server:
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: 230406
+    keyStoreType: PKCS12
+    keyAlias: myapp
+
+  port: 8080
+
+
+spring:
+  data:
+    mongodb:
+#      database: quotes
+      uri: mongodb://madina:2006@dinam.uz:27018/quotes
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger
+    tags-sorter: alpha
+    operations-sorter: alpha
+    disable-swagger-default-url: true
+    doc-expansion: none
