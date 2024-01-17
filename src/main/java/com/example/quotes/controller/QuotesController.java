@@ -49,7 +49,7 @@ public class QuotesController {
         return ResponseEntity.ok(quotesService.getByCategory(category,pageable));
     }
 
-    @GetMapping("/all-authors")
+    @GetMapping("/")
     public ResponseEntity<List<Author>> getAllAuthors() {
         return ResponseEntity.ok(quotesService.getAllAuthors());
     }
