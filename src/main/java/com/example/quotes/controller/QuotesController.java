@@ -1,5 +1,6 @@
 package com.example.quotes.controller;
 
+import com.example.quotes.DTO.respone.Author;
 import com.example.quotes.DTO.respone.QuotesResponseDto;
 import com.example.quotes.entity.QuotesEntity;
 import com.example.quotes.service.QuotesService;
@@ -46,5 +47,10 @@ public class QuotesController {
     ) {
         Pageable pageable = PageRequest.of(page,size);
         return ResponseEntity.ok(quotesService.getByCategory(category,pageable));
+    }
+
+    @GetMapping("/all-authors")
+    public ResponseEntity<List<Author>> getAllAuthors() {
+        return ResponseEntity.ok(quotesService.getAllAuthors());
     }
 }

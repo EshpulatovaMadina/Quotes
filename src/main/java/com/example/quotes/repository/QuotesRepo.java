@@ -1,5 +1,6 @@
 package com.example.quotes.repository;
 
+import com.example.quotes.DTO.respone.Author;
 import com.example.quotes.entity.QuotesEntity;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Pageable;
@@ -14,4 +15,11 @@ public interface QuotesRepo extends MongoRepository<QuotesEntity, ObjectId> {
     List<QuotesEntity> findRandomSample(int size);
     List<QuotesEntity> findByAuthor(String author, Pageable pageable);
     List<QuotesEntity> findByCategory(String category, Pageable pageable);
+    @Aggregation(pipeline = {
+            "{ $group: { _id: null, authors: { $addToSet: '$author' } } }",
+            "{ $project: { _id: 0, authors: 1 } }",
+            "{ $unwind: '$authors' }",
+            "{ $replaceRoot: { newRoot: { name: '$authors' } } }"
+    })
+    List<Author> findDistinctAuthors();
 }

@@ -1,5 +1,6 @@
 package com.example.quotes.service;
 
+import com.example.quotes.DTO.respone.Author;
 import com.example.quotes.DTO.respone.QuotesResponseDto;
 import com.example.quotes.entity.QuotesEntity;
 import com.example.quotes.repository.QuotesRepo;
@@ -30,5 +31,9 @@ public class QuotesService {
 
     public List<QuotesResponseDto> getByCategory(String category,Pageable pageable) {
         return quotesRepo.findByCategory(category, pageable).stream().map(this::parse).toList();
+    }
+
+    public List<Author> getAllAuthors() {
+        return quotesRepo.findDistinctAuthors();
     }
 }
