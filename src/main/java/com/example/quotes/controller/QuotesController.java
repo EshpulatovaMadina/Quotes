@@ -5,8 +5,10 @@ import com.example.quotes.DTO.respone.QuotesResponseDto;
 import com.example.quotes.entity.QuotesEntity;
 import com.example.quotes.service.QuotesService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +28,7 @@ public class QuotesController {
     }
 
     @GetMapping("/author")
-    public ResponseEntity<List<QuotesResponseDto>> getByAuthor(
+    public ResponseEntity<Page<QuotesResponseDto>> getByAuthor(
             @RequestParam(value = "page", defaultValue = "0")
             int page,
             @RequestParam(value = "size", defaultValue = "5")
@@ -38,7 +40,7 @@ public class QuotesController {
     }
 
     @GetMapping("/category")
-    public ResponseEntity<List<QuotesResponseDto>> getByCategory(
+    public ResponseEntity<Page<QuotesResponseDto>> getByCategory(
             @RequestParam(value = "page", defaultValue = "0")
             int page,
             @RequestParam(value = "size", defaultValue = "5")
@@ -49,8 +51,15 @@ public class QuotesController {
         return ResponseEntity.ok(quotesService.getByCategory(category,pageable));
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<Author>> getAllAuthors() {
-        return ResponseEntity.ok(quotesService.getAllAuthors());
+    @GetMapping("/authors")
+    public ResponseEntity<Slice<Author>> getAllAuthors(
+            @RequestParam(defaultValue = "a") Character character,
+            @RequestParam(value = "page", defaultValue = "0")
+            int page,
+            @RequestParam(value = "size", defaultValue = "10")
+            int size
+    ) {
+        Pageable pageable = PageRequest.of(page,size);
+        return ResponseEntity.ok(quotesService.getAuthorsByChar(character,pageable));
     }
 }
