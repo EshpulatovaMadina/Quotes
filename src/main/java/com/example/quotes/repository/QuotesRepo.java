@@ -28,9 +28,8 @@ public interface QuotesRepo extends MongoRepository<QuotesEntity, ObjectId> {
             "{ $group: { _id: null, authors: { $addToSet: '$author' } } }",
             "{ $project: { _id: 0, authors: 1 } }",
             "{ $unwind: '$authors' }",
-            "{ $match: { 'authors': { $regex: ?0, $options: 'i' } } }",
-            "{ $replaceRoot: { newRoot: { name: '$authors' } } }",
-            "{ $facet: { metadata: [ { $count: 'totalElements' }, { $addFields: { totalPages: { $ceil: { $divide: ['$totalElements', ?1] } } } } ], data: [ { $skip: { $multiply: [ ?2, ?1 ] } }, { $limit: ?1 } ] } }"
+            "{ $match: { 'authors': { $regex: '^" + "?0" + "', $options: 'i' } } }",
+            "{ $replaceRoot: { newRoot: { name: '$authors' } } }"
     })
     Slice<Author> findAuthorsByFirstLetter(String firstLetter, Pageable pageable);
 

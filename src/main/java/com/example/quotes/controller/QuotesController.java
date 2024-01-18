@@ -27,7 +27,7 @@ public class QuotesController {
         return ResponseEntity.ok(quotesService.getRandom(num));
     }
 
-    @GetMapping("/author")
+    @GetMapping("/by-author")
     public ResponseEntity<Page<QuotesResponseDto>> getByAuthor(
             @RequestParam(value = "page", defaultValue = "0")
             int page,
@@ -54,7 +54,7 @@ public class QuotesController {
     @GetMapping("/authors")
     public ResponseEntity<Slice<Author>> getAllAuthors(
             @RequestParam(defaultValue = "a") Character character,
-            @RequestParam(value = "page", defaultValue = "0")
+            @RequestParam(value = "page", defaultValue = "1")
             int page,
             @RequestParam(value = "size", defaultValue = "10")
             int size

@@ -43,6 +43,7 @@ public class QuotesService {
     }
 
     public Slice<Author> getAuthorsByChar(Character character, Pageable pageable) {
-        return quotesRepo.findAuthorsByFirstLetter(String.valueOf(character),pageable);
+        return quotesRepo.findAuthorsByFirstLetter(character.toString(), pageable);
     }
 }
+
