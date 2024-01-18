@@ -1,7 +1,6 @@
 package com.example.quotes.repository;
 
 import com.example.quotes.DTO.respone.Author;
-import com.example.quotes.DTO.respone.QuotesResponseDto;
 import com.example.quotes.entity.QuotesEntity;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.*;
